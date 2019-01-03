@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.HillfortActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:fitsSystemWindows="true"
+            app:elevation="0dip"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbarAdd"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:titleTextColor="@color/colorPrimary"/>
+        </com.google.android.material.appbar.AppBarLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/appBarLayout"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/hillfortTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_hillfortTitle"
+                    android:inputType="text"
+                    android:maxLength="25"
+                    android:maxLines="1"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_hillfortDescription"
+                    android:inputType="textMultiLine"
+                    android:lines="2"
+                    android:maxLines="6"
+                    android:scrollbars="vertical"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"/>
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/notes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="@string/hint_hillfortNotes"
+                    android:inputType="textMultiLine"
+                    android:lines="5"
+                    android:maxLines="6"
+                    android:scrollbars="vertical"
+                    android:padding="8dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="14sp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center">
+                    <TextView
+                        android:id="@+id/visited_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hillfort_card_visit"
+                        android:textSize="18sp"
+                        android:layout_centerVertical="true"/>
+
+                    <CheckBox
+                        android:id="@+id/visit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@id/visited_label"/>
+                </RelativeLayout>
+
+                <DatePicker
+                    android:id="@+id/date_visited"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:datePickerMode="spinner"
+                    android:layout_gravity="center"
+                    android:calendarViewShown="false"/>
+
+                <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/rating"
+                  android:hint="@string/RateHillfort"
+                  android:inputType="number"
+                  />
+
+                <Button
+                    android:id="@+id/chooseImage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:text="@string/button_addImage"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/hillfortImageGallery"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <Button
+                    android:id="@+id/hillfortLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/button_setLocation"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"/>
+
+                <Button
+                    android:id="@+id/btnAdd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:background="@color/colorAccent"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp"
+                    android:stateListAnimator="@null"
+                    android:text="@string/button_addHillfort"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
