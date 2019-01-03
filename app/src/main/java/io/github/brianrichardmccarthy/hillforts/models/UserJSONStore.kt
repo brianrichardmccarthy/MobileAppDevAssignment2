@@ -51,6 +51,7 @@ class UserJSONStore: UserStore, AnkoLogger {
       foundUser.email = user.email
       foundUser.passwordHash = user.passwordHash
       foundUser.hillforts = ArrayList(user.hillforts)
+      foundUser.favourites = ArrayList(user.favourites)
       serialize()
       logAll()
     }

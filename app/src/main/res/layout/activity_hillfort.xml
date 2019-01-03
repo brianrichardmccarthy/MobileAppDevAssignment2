@@ -97,6 +97,25 @@
                         android:layout_toRightOf="@id/visited_label"/>
                 </RelativeLayout>
 
+              <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+                <TextView
+                  android:id="@+id/favLabel"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="@string/hillfort_fav"
+                  android:textSize="18sp"
+                  android:layout_centerVertical="true"/>
+
+                <CheckBox
+                  android:id="@+id/fav"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_toRightOf="@id/favLabel"/>
+              </RelativeLayout>
+
                 <DatePicker
                     android:id="@+id/date_visited"
                     android:layout_width="wrap_content"

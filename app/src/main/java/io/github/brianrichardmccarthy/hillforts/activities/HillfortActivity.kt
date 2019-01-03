@@ -52,6 +52,14 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       visit.isChecked = hillfort.visited
       rating.setText(hillfort.rating.toString())
       date_visited.updateDate(hillfort.yearVisited, hillfort.monthVisited, hillfort.dayVisited)
+
+      for ( h: HillfortModel in app.currentUser.favourites) {
+        if (h.title.equals(hillfort.title)) {
+          fav.isChecked = true
+          break
+        }
+      }
+
       btnAdd.setText(R.string.button_saveHillfort)
     }
 
@@ -80,6 +88,11 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       hillfort.monthVisited = date_visited.month
       hillfort.yearVisited = date_visited.year
       hillfort.rating = rating.text.toString().toInt()
+      if (fav.isChecked) {
+        app.currentUser.favourites.add(hillfort.copy())
+      } else {
+        app.currentUser.favourites.removeAll { h -> h.title.equals(hillfort.title) }
+      }
 
       if (hillfort.title.isEmpty()) toast(R.string.enter_hillfort_title)
       else {
