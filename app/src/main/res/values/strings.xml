@@ -62,5 +62,9 @@
 
   <string name="loader_text">Hillfort Splash Screen</string>
   <string name="title_activity_debug">Map</string>
+  <string name="viewAllOnMaps">View All Hillforts</string>
+  <string name="title_activity_hillfort_maps">HillfortMapsActivity</string>
+  <string name="title_activity_hillforts_maps">Map of All Placemarks </string>
+  <string name="title_activity_fuck_maps">Map</string>
 
 </resources>

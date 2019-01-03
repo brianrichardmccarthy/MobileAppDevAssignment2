@@ -66,22 +66,21 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when (item?.itemId) {
       R.id.item_add -> startActivityForResult<HillfortActivity>(0)
-
       R.id.item_logout -> {
         toast(R.string.logout_success)
         setResult(AppCompatActivity.RESULT_OK)
         finish()
       }
-
+      R.id.item_view_all_hillforts -> {
+        startActivityForResult<HillfortMapsActivity>(0)
+      }
       R.id.item_settings -> {
         startActivityForResult<HillfortSettingsActivity>(0)
       }
-
       android.R.id.home -> {
         drawerLayout.openDrawer(GravityCompat.START)
         true
       }
-
     }
     return super.onOptionsItemSelected(item)
   }

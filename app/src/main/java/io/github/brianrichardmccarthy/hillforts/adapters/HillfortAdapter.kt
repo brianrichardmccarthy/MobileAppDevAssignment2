@@ -45,7 +45,7 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
       df.roundingMode = RoundingMode.CEILING
       itemView.hillfortTitle.text = hillfort.title
       itemView.description.text = hillfort.description
-      itemView.location.text = LatLng(df.format(hillfort.lat).toDouble(), df.format(hillfort.lng).toDouble()).toString()
+      itemView.location.text = LatLng(df.format(hillfort.location.lat).toDouble(), df.format(hillfort.location.lng).toDouble()).toString()
       if (hillfort.images.isNotEmpty()) itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.images.first()))
       if (hillfort.visited) itemView.hillfort_card.setBackgroundResource(R.color.colorVisited)
       else itemView.hillfort_card.setBackgroundResource(R.color.colorNotVisited)

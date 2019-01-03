@@ -8,10 +8,12 @@ import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
 import kotlinx.android.synthetic.main.activity_login.*
+import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
-class HillfortLoginActivity: AppCompatActivity() {
+class HillfortLoginActivity: AppCompatActivity(), AnkoLogger {
 
   lateinit var app: MainApp
 
@@ -36,6 +38,7 @@ class HillfortLoginActivity: AppCompatActivity() {
   }
 
   fun login(){
+
     val email = login_useremail.text.toString()
     val passwordHash = sha256(login_userpassword.text.toString())
     var userFound: UserModel? = app.users.findAll().find{ u ->

@@ -14,31 +14,19 @@
     android:theme="@style/AppTheme">
     <activity
       android:name=".activities.HillfortSplashActivity"
-      android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+      android:label="@string/app_name">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
 
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
     </activity>
-    <activity android:name=".activities.HillfortLoginActivity"></activity>
-    <activity android:name=".activities.HillfortSignupActivity"></activity>
-    <activity android:name=".activities.HillfortListActivity"></activity>
-    <activity
-      android:name=".activities.HillfortSettingsActivity"
-      android:parentActivityName=".activities.HillfortListActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".activities.HillfortListActivity" />
-    </activity>
     <activity
       android:name=".activities.HillfortActivity"
-      android:parentActivityName=".activities.HillfortListActivity">
-      <meta-data
-        android:name="android.support.PARENT_ACTIVITY"
-        android:value=".activities.HillfortListActivity" />
-    </activity>
-    <activity android:name=".activities.HillfortImageActivity"></activity>
+      android:parentActivityName=".activities.HillfortListActivity" />
+    <activity android:name=".activities.HillfortListActivity" />
+
+    <activity android:name=".activities.HillfortMapsActivity"/>
 
     <meta-data
       android:name="com.google.android.geo.API_KEY"
@@ -46,10 +34,11 @@
 
     <activity
       android:name=".activities.MapsActivity"
-      android:label="@string/title_activity_maps"></activity>
-    <activity
-      android:name=".fuckgooglemaps.debug"
-      android:label="@string/title_activity_debug"></activity>
+      android:label="@string/title_activity_maps"
+      android:parentActivityName=".activities.HillfortActivity" />
+    <activity android:name=".activities.HillfortLoginActivity" />
+    <activity android:name=".activities.HillfortSignupActivity"
+      android:parentActivityName=".activities.HillfortLoginActivity"></activity>
   </application>
 
 </manifest>
