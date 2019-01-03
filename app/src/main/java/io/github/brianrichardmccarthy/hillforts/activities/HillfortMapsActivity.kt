@@ -69,8 +69,8 @@ class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
     mapView.onResume()
   }
 
-  override fun onSaveInstanceState(outState: Bundle?) {
-    super.onSaveInstanceState(outState)
+  override fun onSaveInstanceState(outState: Bundle?, outPersistentState: PersistableBundle?) {
+    super.onSaveInstanceState(outState!!)
     mapView.onSaveInstanceState(outState)
   }
 

@@ -20,16 +20,14 @@ class HillfortSettingsFragment: PreferenceFragmentCompat(), AnkoLogger {
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     addPreferencesFromResource(R.xml.preferences)
 
-    /*
-    findPreference("pref_user_email").setOnPreferenceChangeListener { preference, newValue -> changeUserEmail(newValue) }
-    findPreference("pref_user_password").setOnPreferenceClickListener { changeUserPassword() }
+    findPreference<Preference>("pref_user_email").setOnPreferenceChangeListener { preference, newValue -> changeUserEmail(newValue) }
+    findPreference<Preference>("pref_user_password").setOnPreferenceClickListener { changeUserPassword() }
 
-    findPreference("pref_stats_visited").summary = preferenceManager.sharedPreferences
+    findPreference<Preference>("pref_stats_visited").summary = preferenceManager.sharedPreferences
         .getInt("pref_stats_visited", 0).toString()
 
-    findPreference("pref_stats_total").summary = preferenceManager.sharedPreferences
+    findPreference<Preference>("pref_stats_total").summary = preferenceManager.sharedPreferences
         .getInt("pref_stats_total", 0).toString()
-*/
   }
 
   private fun changeUserEmail(newValue: Any): Boolean{
