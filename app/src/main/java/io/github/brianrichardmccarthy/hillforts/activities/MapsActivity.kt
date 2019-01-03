@@ -2,7 +2,7 @@ package io.github.brianrichardmccarthy.hillforts.activities
 
 import android.app.Activity
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
 import com.google.android.gms.maps.CameraUpdateFactory

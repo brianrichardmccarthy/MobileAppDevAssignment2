@@ -2,8 +2,8 @@ package io.github.brianrichardmccarthy.hillforts.activities
 
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
-import android.support.v7.preference.*
+import androidx.appcompat.app.AppCompatActivity
+import androidx.preference.*
 import android.view.MenuItem
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.main.MainApp

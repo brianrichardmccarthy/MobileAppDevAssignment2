@@ -1,9 +1,9 @@
 package io.github.brianrichardmccarthy.hillforts.activities
 
 import android.content.Intent
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
+import androidx.recyclerview.widget.GridLayoutManager
 import android.view.Menu
 import android.view.MenuItem
 import io.github.brianrichardmccarthy.hillforts.R
@@ -39,7 +39,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
     setSupportActionBar(toolbarAdd)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    val layoutManager = GridLayoutManager(this,2)
+    val layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
     hillfortImageGallery.layoutManager = layoutManager
 
     var edit = false

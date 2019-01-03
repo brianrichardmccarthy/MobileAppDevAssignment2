@@ -23,8 +23,11 @@
     </activity>
     <activity
       android:name=".activities.HillfortActivity"
-      android:parentActivityName=".activities.HillfortListActivity" />
-    <activity android:name=".activities.HillfortListActivity" />
+      android:parentActivityName=".activities.HillfortListActivity"
+      android:label="@string/title_activity_hillfort" />
+    <activity android:name=".activities.HillfortListActivity"
+      android:label="@string/title_activity_hillfort_list"
+      />
 
     <activity android:name=".activities.HillfortMapsActivity"/>
 
@@ -34,8 +37,9 @@
 
     <activity
       android:name=".activities.MapsActivity"
-      android:label="@string/title_activity_maps"
+      android:label="@string/title_activity_edit_location"
       android:parentActivityName=".activities.HillfortActivity" />
+
     <activity android:name=".activities.HillfortLoginActivity" />
     <activity android:name=".activities.HillfortSignupActivity"
       android:parentActivityName=".activities.HillfortLoginActivity"></activity>

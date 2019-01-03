@@ -2,10 +2,10 @@ package io.github.brianrichardmccarthy.hillforts.activities
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.support.v7.preference.EditTextPreference
-import android.support.v7.preference.Preference
-import android.support.v7.preference.PreferenceFragmentCompat
-import android.support.v7.preference.PreferenceManager
+import androidx.preference.EditTextPreference
+import androidx.preference.Preference
+import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.widget.Toast
 import io.github.brianrichardmccarthy.hillforts.R
@@ -20,6 +20,7 @@ class HillfortSettingsFragment: PreferenceFragmentCompat(), AnkoLogger {
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     addPreferencesFromResource(R.xml.preferences)
 
+    /*
     findPreference("pref_user_email").setOnPreferenceChangeListener { preference, newValue -> changeUserEmail(newValue) }
     findPreference("pref_user_password").setOnPreferenceClickListener { changeUserPassword() }
 
@@ -28,7 +29,7 @@ class HillfortSettingsFragment: PreferenceFragmentCompat(), AnkoLogger {
 
     findPreference("pref_stats_total").summary = preferenceManager.sharedPreferences
         .getInt("pref_stats_total", 0).toString()
-
+*/
   }
 
   private fun changeUserEmail(newValue: Any): Boolean{
