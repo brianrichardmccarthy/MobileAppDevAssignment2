@@ -105,6 +105,14 @@
                     android:layout_gravity="center"
                     android:calendarViewShown="false"/>
 
+                <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:id="@+id/rating"
+                  android:hint="@string/RateHillfort"
+                  android:inputType="number"
+                  />
+
                 <Button
                     android:id="@+id/chooseImage"
                     android:layout_width="match_parent"

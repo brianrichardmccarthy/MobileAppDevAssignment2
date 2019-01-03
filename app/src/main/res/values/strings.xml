@@ -66,5 +66,6 @@
   <string name="title_activity_hillfort_maps">HillfortMapsActivity</string>
   <string name="title_activity_hillforts_maps">Map of All Placemarks </string>
   <string name="title_activity_fuck_maps">Map</string>
+  <string name="RateHillfort">Rate Hillfort</string>
 
 </resources>

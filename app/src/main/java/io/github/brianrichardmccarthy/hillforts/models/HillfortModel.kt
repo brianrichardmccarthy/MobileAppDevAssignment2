@@ -20,4 +20,5 @@ data class HillfortModel(var id: Long = Random().nextLong(),
                          var notes: String = "",
                          var dayVisited: Int = 1,
                          var monthVisited: Int = 1,
-                         var yearVisited: Int = 2018): Parcelable
+                         var yearVisited: Int = 2018,
+                         var rating: Int = 0): Parcelable

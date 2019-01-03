@@ -25,6 +25,8 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
   val IMAGE_GALLERY_REQUEST = 2
   val LOCATION_REQUEST = 3
 
+  // rating
+
   var hillfort = HillfortModel()
   lateinit var app : MainApp
 
@@ -48,6 +50,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       description.setText(hillfort.description)
       notes.setText(hillfort.notes)
       visit.isChecked = hillfort.visited
+      rating.setText(hillfort.rating.toString())
       date_visited.updateDate(hillfort.yearVisited, hillfort.monthVisited, hillfort.dayVisited)
       btnAdd.setText(R.string.button_saveHillfort)
     }
@@ -76,6 +79,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       hillfort.dayVisited = date_visited.dayOfMonth
       hillfort.monthVisited = date_visited.month
       hillfort.yearVisited = date_visited.year
+      hillfort.rating = rating.text.toString().toInt()
 
       if (hillfort.title.isEmpty()) toast(R.string.enter_hillfort_title)
       else {
