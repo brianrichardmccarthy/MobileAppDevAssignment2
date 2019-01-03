@@ -8,6 +8,10 @@
         android:title="@string/menu_addHillfort"
         app:showAsAction="always"/>
 
+    <item android:id="@+id/view_favs"
+      android:title="@string/view_favs_text"
+      />
+
     <item
       android:id="@+id/item_view_all_hillforts"
       android:title="@string/viewAllOnMaps"

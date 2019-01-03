@@ -1,5 +1,6 @@
 package io.github.brianrichardmccarthy.hillforts.activities
 
+import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
@@ -28,6 +29,7 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
   lateinit var app: MainApp
   private lateinit var drawerLayout: androidx.drawerlayout.widget.DrawerLayout
   private lateinit var navView: NavigationView
+  private var showAllHillforts: Boolean = true
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -70,6 +72,10 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
         toast(R.string.logout_success)
         setResult(AppCompatActivity.RESULT_OK)
         finish()
+      }
+      R.id.view_favs -> {
+        showAllHillforts = !showAllHillforts
+        loadHillforts(showAllHillforts)
       }
       R.id.item_view_all_hillforts -> {
         startActivityForResult<HillfortMapsActivity>(0)
@@ -118,8 +124,8 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
     exitProcess(0)
   }
 
-  private fun loadHillforts() {
-    showHillforts(app.currentUser.hillforts)
+  private fun loadHillforts(showAll: Boolean = true) {
+    showHillforts(if (showAll) app.currentUser.hillforts else app.currentUser.favourites)
   }
 
   fun showHillforts (hillforts: List<HillfortModel>) {
