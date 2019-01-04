@@ -14,7 +14,7 @@ import org.jetbrains.anko.toast
 
 class LoginPresenter(view: BaseView) : BasePresenter(view) {
 
-  var auth: FirebaseAuth = FirebaseAuth.getInstance()
+
   var fireStore: UserFirebase? = null
 
   init {
@@ -66,7 +66,8 @@ class LoginPresenter(view: BaseView) : BasePresenter(view) {
           app.currentUser = it
         }
       }
-    } else {
+    }
+    if (app.currentUser == null) {
         fireStore!!.create(UserModel(email = email, passwordHash = password))
         app.currentUser = fireStore!!.findAll().last()
     }

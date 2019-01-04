@@ -39,6 +39,9 @@ class UserFirebase(val context: Context) : UserStore, AnkoLogger {
       foundUser.passwordHash = user.passwordHash
       foundUser.hillforts = ArrayList(user.hillforts)
       foundUser.favourites = ArrayList(user.favourites)
+
+      FirebaseAuth.getInstance().currentUser!!.updateEmail(user.email)
+      FirebaseAuth.getInstance().currentUser!!.updatePassword(user.passwordHash)
     }
 
     db.child("users").child(userId).child("hillforts").child(user.fbId).setValue(user)
