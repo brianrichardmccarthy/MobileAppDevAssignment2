@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  package="io.github.brianrichardmccarthy.hillforts">
+
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+  <application
+    android:name=".main.MainApp"
+    android:allowBackup="true"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/AppTheme">
+    <activity
+      android:name=".views.splashscreen.HillfortSplashActivity"
+      android:label="@string/app_name">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+    <activity
+      android:name=".views.hillfort.HillfortActivity"
+      android:parentActivityName=".views.hillfortList.HillfortListActivity"
+      android:label="@string/title_activity_hillfort" />
+    <activity android:name=".views.hillfortList.HillfortListActivity"
+      android:label="@string/title_activity_hillfort_list"
+      />
+
+    <activity android:name=".views.hillfortMaps.HillfortMapsActivity"/>
+
+    <meta-data
+      android:name="com.google.android.geo.API_KEY"
+      android:value="@string/google_maps_key" />
+
+    <activity
+      android:name=".views.hillfortMaps.MapsActivity"
+      android:label="@string/title_activity_edit_location"
+      android:parentActivityName=".views.hillfort.HillfortActivity" />
+
+    <activity android:name=".views.user.HillfortLoginActivity" />
+    <activity android:name=".views.user.HillfortSettingsActivity" />
+    <activity android:name=".views.user.HillfortSignupActivity"
+      android:parentActivityName=".views.user.HillfortLoginActivity"></activity>
+  </application>
+
+</manifest>

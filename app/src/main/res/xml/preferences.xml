@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="@string/settings_cat_user">
+
+        <EditTextPreference
+            android:key="pref_user_email"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="@string/settings_email"
+            android:summary="@string/settings_email_summary"/>
+
+        <PreferenceScreen
+            android:key="pref_user_password"
+            android:title="@string/settings_password"
+            android:summary="@string/settings_password_summary" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/settings_cat_hillforts">
+
+        <Preference
+            android:key="pref_stats_visited"
+            android:title="@string/settings_stats_visited"
+            android:enabled="false"/>
+
+        <Preference
+            android:key="pref_stats_total"
+            android:title="@string/settings_stats_total"
+            android:enabled="false"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>
