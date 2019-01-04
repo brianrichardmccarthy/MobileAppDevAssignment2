@@ -16,6 +16,9 @@ class MainApp : Application(), AnkoLogger {
   override fun onCreate() {
     super.onCreate()
 
+    users = UserFirebase(applicationContext)
+
+    /*
     var initialHillforts = ArrayList<HillfortModel>()
 
     initialHillforts.add(HillfortModel(title = "IR0905 Ballynamona Lower, Waterford",
@@ -30,5 +33,6 @@ class MainApp : Application(), AnkoLogger {
     users = UserJSONStore(applicationContext, initialUsers, initialHillforts)
     //hillforts = HillfortJSONStore(applicationContext, initialHillforts)
     info("Hillfort started")
+    */
   }
 }

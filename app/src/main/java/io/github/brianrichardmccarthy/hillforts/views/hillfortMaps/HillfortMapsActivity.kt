@@ -30,7 +30,7 @@ class HillfortMapsActivity : BaseView(), GoogleMap.OnMarkerClickListener {
     mapView.onCreate(savedInstanceState)
     mapView.getMapAsync {
       presenter.map = it
-      presenter.initMap()
+      presenter.loadPlacemarks()
     }
   }
 
@@ -60,8 +60,8 @@ class HillfortMapsActivity : BaseView(), GoogleMap.OnMarkerClickListener {
   }
 
   override fun onMarkerClick(marker: Marker): Boolean {
-    currentTitle.text = marker.title
-    return false
+    presenter.doMarkerSelected(marker)
+    return true
   }
 
 }

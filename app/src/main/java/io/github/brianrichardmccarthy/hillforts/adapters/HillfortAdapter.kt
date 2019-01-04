@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.bumptech.glide.Glide
 import com.chauthai.swipereveallayout.SwipeRevealLayout
 import com.google.android.gms.maps.model.LatLng
 import kotlinx.android.synthetic.main.card_hillfort.view.*
@@ -46,7 +47,7 @@ class HillfortAdapter constructor(private var hillforts: List<HillfortModel>,
       itemView.hillfortTitle.text = hillfort.title
       itemView.description.text = hillfort.description
       itemView.location.text = LatLng(df.format(hillfort.location.lat).toDouble(), df.format(hillfort.location.lng).toDouble()).toString()
-      if (hillfort.images.isNotEmpty()) itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.images.first()))
+      if (hillfort.images.isNotEmpty()) Glide.with(itemView.context).load(hillfort.images.first()).into(itemView.imageIcon) ///itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, hillfort.images.first()))
       if (hillfort.visited) itemView.hillfort_card.setBackgroundResource(R.color.colorVisited)
       else itemView.hillfort_card.setBackgroundResource(R.color.colorNotVisited)
       itemView.hillfort_card_menu.btn_hillfort_delete.setOnClickListener { listener.onHillfortMenuDeleteClick(hillfort) }
