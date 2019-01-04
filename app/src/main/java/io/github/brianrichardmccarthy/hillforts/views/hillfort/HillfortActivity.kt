@@ -27,7 +27,7 @@ class HillfortActivity : BaseView(), HillfortImageListener {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort)
 
-    init(toolbarAdd)
+    init(toolbarAdd, true)
     presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
     mapView.onCreate(savedInstanceState)

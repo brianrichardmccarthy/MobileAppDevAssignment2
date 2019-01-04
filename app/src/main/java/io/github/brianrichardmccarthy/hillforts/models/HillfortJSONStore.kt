@@ -16,6 +16,9 @@ fun generateRandomId(): Long {
 }
 
 class HillfortJSONStore : HillfortStore, AnkoLogger {
+  override fun findById(id: Long): HillfortModel? {
+    return hillforts.find { it.id == id }
+  }
 
   val JSON_HILLFORT_FILE = "hillforts.json"
   val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
@@ -28,8 +31,6 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
     this.context = context
     if (exists(context, JSON_HILLFORT_FILE)) {
       deserialize()
-    } else {
-      initialHillforts.forEach { create(it.copy()) }
     }
   }
 
@@ -66,6 +67,10 @@ class HillfortJSONStore : HillfortStore, AnkoLogger {
       serialize()
       logAll()
     }
+  }
+
+  override fun clear() {
+    hillforts.clear()
   }
 
   private fun serialize() {

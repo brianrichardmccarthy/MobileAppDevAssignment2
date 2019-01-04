@@ -20,7 +20,7 @@ class HillfortSettingsActivity: BaseView() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_settings)
 
-    init(toolbarSettings)
+    init(toolbarSettings, true)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
       presenter = initPresenter(HillfortSettingsPresenter(this)) as HillfortSettingsPresenter

@@ -9,4 +9,5 @@ data class UserModel(var id: Long = 0,
                      var email: String="",
                      var passwordHash: String="",
                      var hillforts: MutableList<HillfortModel> = ArrayList(),
-                     var favourites: MutableList<HillfortModel> = ArrayList()): Parcelable
+                     var favourites: MutableList<HillfortModel> = ArrayList(),
+                     var fbId : String = ""): Parcelable

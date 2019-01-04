@@ -193,7 +193,7 @@ class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
     hillfort.location.lng = lng
     hillfort.location.zoom = 15f
     map?.clear()
-    map?.uiSettings?.setZoomControlsEnabled(true)
+    map?.uiSettings?.isZoomControlsEnabled = true
     val options = MarkerOptions().title(hillfort.title).position(LatLng(hillfort.location.lat, hillfort.location.lng))
     map?.addMarker(options)
     map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(hillfort.location.lat, hillfort.location.lng), hillfort.location.zoom))

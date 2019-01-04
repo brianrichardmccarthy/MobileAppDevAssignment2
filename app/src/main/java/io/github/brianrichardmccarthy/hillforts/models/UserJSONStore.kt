@@ -14,6 +14,9 @@ import org.jetbrains.anko.info
 import java.util.ArrayList
 
 class UserJSONStore: UserStore, AnkoLogger {
+  override fun findById(id: Long): UserModel? {
+    return users.find { it.id == id }
+  }
 
   val JSON_USERS_FILE="users.json"
   val gsonBuilder = GsonBuilder().setPrettyPrinting().create()
@@ -60,6 +63,10 @@ class UserJSONStore: UserStore, AnkoLogger {
   override fun delete(user: UserModel) {
     users.remove(user)
     serialize()
+  }
+
+  override fun clear() {
+    users.clear()
   }
 
   private fun serialize(){
