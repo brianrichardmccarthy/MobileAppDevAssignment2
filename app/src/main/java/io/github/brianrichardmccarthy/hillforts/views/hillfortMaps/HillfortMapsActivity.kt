@@ -1,8 +1,7 @@
-package io.github.brianrichardmccarthy.hillforts.activities
+package io.github.brianrichardmccarthy.hillforts.views.hillfortMaps
 
 import android.os.Bundle
 import android.os.PersistableBundle
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,34 +18,20 @@ import org.jetbrains.anko.info
 
 class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, AnkoLogger {
 
-  lateinit var map: GoogleMap
-  lateinit var app: MainApp
+  lateinit var presenter: HillfortMapsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_maps)
     setSupportActionBar(toolbarMaps)
-    app = application as MainApp
+
+    presenter = HillfortMapsPresenter(this)
+
     mapView.onCreate(savedInstanceState)
     mapView.getMapAsync {
-      map = it
-      configureMap()
+      presenter.initMap()
+      presenter.map = it
     }
-  }
-
-  fun configureMap() {
-    map.uiSettings.setZoomControlsEnabled(true)
-    app.currentUser.hillforts.forEach {
-      val loc = LatLng(it.location.lat, it.location.lng)
-      val options = MarkerOptions().title(it.title).position(loc)
-      map.addMarker(options).tag = it.id
-      map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.location.zoom))
-      info("\n\tDebug Maps\nLatitude=${loc.latitude}, Longitude=${loc.longitude}\n\n")
-    }
-
-    //info("Number of shitforts = ${app.currentUser.hillforts}")
-
-    map.setOnMarkerClickListener(this)
   }
 
   override fun onDestroy() {

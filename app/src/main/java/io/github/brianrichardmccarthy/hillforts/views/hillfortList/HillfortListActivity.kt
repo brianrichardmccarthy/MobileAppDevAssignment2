@@ -1,41 +1,39 @@
-package io.github.brianrichardmccarthy.hillforts.activities
+package io.github.brianrichardmccarthy.hillforts.views.hillfortList
 
-import android.content.ClipData
 import android.content.Intent
 import android.os.Bundle
 import com.google.android.material.navigation.NavigationView
 import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import android.widget.TextView
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortAdapter
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortListener
-import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
+import io.github.brianrichardmccarthy.hillforts.views.hillfortMaps.HillfortMapsActivity
+import io.github.brianrichardmccarthy.hillforts.views.user.HillfortSettingsActivity
+import io.github.brianrichardmccarthy.hillforts.views.hillfort.HillfortActivity
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
-import kotlinx.android.synthetic.main.drawer_header.*
-import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
-import org.w3c.dom.Text
-import kotlin.system.exitProcess
 
 
 class HillfortListActivity: AppCompatActivity(), HillfortListener {
 
-  lateinit var app: MainApp
+
   private lateinit var drawerLayout: androidx.drawerlayout.widget.DrawerLayout
   private lateinit var navView: NavigationView
   private var showAllHillforts: Boolean = true
 
+  lateinit var presenter: HillforListPresenter
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_list)
-    app = application as MainApp
     drawerLayout = findViewById(R.id.drawer_layout)
+
+    presenter = HillforListPresenter(this)
 
     toolbarMain.title = title
     setSupportActionBar(toolbarMain)
@@ -52,8 +50,8 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
       true
     }
 
-    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_name).text = app.currentUser.name
-    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = app.currentUser.email
+    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_name).text = presenter.app.currentUser.name
+    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = presenter.app.currentUser.email
 
     val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
@@ -92,40 +90,30 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
   }
 
   override fun onHillfortClick(hillfort: HillfortModel) {
-    startActivityForResult(intentFor<HillfortActivity>().putExtra("hillfort_edit", hillfort), 0)
+      presenter.doHillfortClick(hillfort)
   }
 
   override fun onHillfortMenuDeleteClick(hillfort: HillfortModel) {
-    val original : HillfortModel? = app.currentUser.hillforts.find { h -> h.id == hillfort.id }
-    val index = app.currentUser.hillforts.indexOf(original)
-    app.currentUser.hillforts.removeAt(index)
-    app.users.update(app.currentUser.copy())
-    loadHillforts()
+      presenter.doHillfortMenuDeleteClick(hillfort)
   }
 
   override fun onHillfortMenuVisitClick(hillfort: HillfortModel) {
-    hillfort.visited = !hillfort.visited
-    val original : HillfortModel? = app.currentUser.hillforts.find { h -> h.id == hillfort.id }
-    val index = app.currentUser.hillforts.indexOf(original)
-    app.currentUser.hillforts[index] = hillfort.copy()
-    app.users.update(app.currentUser.copy())
-    loadHillforts()
+    presenter.onHillfortMenuVisitClick(hillfort)
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     loadHillforts()
-    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = app.currentUser.email
+    navView.getHeaderView(0).findViewById<TextView>(R.id.drawer_user_email).text = presenter.app.currentUser.email
     super.onActivityResult(requestCode, resultCode, data)
   }
 
   override fun onBackPressed() {
     super.onBackPressed()
-    moveTaskToBack(true)
-    exitProcess(0)
+    presenter.doBackPressed()
   }
 
-  private fun loadHillforts(showAll: Boolean = true) {
-    showHillforts(if (showAll) app.currentUser.hillforts else app.currentUser.favourites)
+  fun loadHillforts(showAll: Boolean = true) {
+    showHillforts(if (showAll) presenter.app.currentUser.hillforts else presenter.app.currentUser.favourites)
   }
 
   fun showHillforts (hillforts: List<HillfortModel>) {

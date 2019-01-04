@@ -1,4 +1,4 @@
-package io.github.brianrichardmccarthy.hillforts.activities
+package io.github.brianrichardmccarthy.hillforts.views.user
 
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -9,30 +9,21 @@ import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import kotlinx.android.synthetic.main.activity_hillfort_settings.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
 
 class HillfortSettingsActivity: AppCompatActivity(), AnkoLogger {
 
-  private lateinit var app: MainApp
-  private lateinit var sharedPrefs: SharedPreferences
+
+  lateinit var presenter: HillfortSettingsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_settings)
 
-    app = application as MainApp
-
     toolbarSettings.title = title
     setSupportActionBar(toolbarSettings)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-    sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this)
-    sharedPrefs.edit().clear().apply()
-
-    val visited = app.currentUser.hillforts.filter { it.visited }.size
-    val total = app.currentUser.hillforts.size
-
-    sharedPrefs.edit().putInt("pref_stats_visited", visited).putInt("pref_stats_total", total).apply()
+      presenter = HillfortSettingsPresenter(this)
 
     supportFragmentManager.beginTransaction()
         .add(R.id.settings_fragment_container, HillfortSettingsFragment())
@@ -41,21 +32,9 @@ class HillfortSettingsActivity: AppCompatActivity(), AnkoLogger {
 
   override fun onOptionsItemSelected(item: MenuItem?): Boolean {
     when(item?.itemId){
-      android.R.id.home -> onBackPressed()
+      android.R.id.home -> presenter.doBackPressed()
     }
     return super.onOptionsItemSelected(item)
   }
-
-  override fun onBackPressed() {
-    val newEmail = sharedPrefs.getString("pref_user_email", "")
-    val newPasswordHash = sharedPrefs.getString("pref_user_password", "")
-
-    if (newEmail.isNotEmpty()) app.currentUser.email = newEmail
-    if (newPasswordHash.isNotEmpty()) app.currentUser.passwordHash = newPasswordHash
-    app.users.update(app.currentUser.copy())
-
-    super.onBackPressed()
-  }
-
 
 }

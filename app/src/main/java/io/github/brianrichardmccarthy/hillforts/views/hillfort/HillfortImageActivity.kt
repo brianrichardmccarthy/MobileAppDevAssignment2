@@ -1,8 +1,7 @@
-package io.github.brianrichardmccarthy.hillforts.activities
+package io.github.brianrichardmccarthy.hillforts.views.hillfort
 
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
@@ -18,7 +17,7 @@ import org.jetbrains.anko.info
 
 class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
 
-  val IMAGE_REQUEST = 1
+  lateinit var presenter: HillfortImagePresenter
 
   lateinit var original: String
   lateinit var image: String
@@ -28,13 +27,6 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_image)
 
-    imageView = findViewById(R.id.fullHillfortImage)
-    image = intent.getStringExtra("image")
-    original = image
-
-    toolbarImage.title = title
-    setSupportActionBar(toolbarImage)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     info("Opening image ${image_delete}")
 
@@ -53,7 +45,7 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
         onBackPressed()
       }
       R.id.image_change -> {
-        showImagePicker(this, IMAGE_REQUEST)
+        showImagePicker(this, presenter.IMAGE_REQUEST)
       }
       android.R.id.home -> onBackPressed()
     }
@@ -63,25 +55,19 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     when(requestCode){
-      IMAGE_REQUEST -> {
-        if (data != null){
-          image = data.data!!.toString()
-          displayImage()
-        }
+      presenter.IMAGE_REQUEST -> {
+          presenter.doActivityResult(data)
       }
     }
   }
 
   override fun onBackPressed() {
-    val resultIntent = Intent()
-    resultIntent.putExtra("image", image)
-    resultIntent.putExtra("original", original)
-    setResult(Activity.RESULT_OK, resultIntent)
+    presenter.doBackPressed()
     finish()
     super.onBackPressed()
   }
 
-  private fun displayImage(){
+  fun displayImage(){
     Picasso.get()
         .load(image)
         .fit()

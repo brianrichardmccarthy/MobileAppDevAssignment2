@@ -1,22 +1,17 @@
-package io.github.brianrichardmccarthy.hillforts.activities
+package io.github.brianrichardmccarthy.hillforts.views.user
 
 import android.app.AlertDialog
 import android.os.Bundle
-import androidx.preference.EditTextPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import androidx.preference.PreferenceManager
 import android.view.LayoutInflater
 import android.widget.Toast
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import kotlinx.android.synthetic.main.dialog_password_changer.view.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.toast
 
 class HillfortSettingsFragment: PreferenceFragmentCompat(), AnkoLogger {
-
   override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
     addPreferencesFromResource(R.xml.preferences)
 
