@@ -9,6 +9,8 @@ import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.R.id.*
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageGalleryAdapter
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageListener
+import io.github.brianrichardmccarthy.hillforts.helpers.readImageFromPath
+import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
 import io.github.brianrichardmccarthy.hillforts.models.Location
 import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import io.github.brianrichardmccarthy.hillforts.views.IMAGE_GALLERY_REQUEST
@@ -28,6 +30,13 @@ class HillfortActivity : BaseView(), HillfortImageListener {
     init(toolbarAdd)
     presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
+    mapView.onCreate(savedInstanceState)
+    mapView.getMapAsync {
+      presenter.map = it
+      presenter.doConfigureMap()
+      it.setOnMapClickListener { presenter.doSetLocation() }
+    }
+
     val layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
     hillfortImageGallery.layoutManager = layoutManager
 
@@ -35,10 +44,12 @@ class HillfortActivity : BaseView(), HillfortImageListener {
       presenter.doChooseImage()
     }
 
-    hillfortLocation.setOnClickListener {
-      presenter.doHillfortLocation()
-    }
+  }
 
+  override fun onResume() {
+    super.onResume()
+    mapView.onResume()
+    presenter.doResartLocationUpdates()
   }
 
   override fun onImageClick(image: String) {
@@ -61,6 +72,13 @@ class HillfortActivity : BaseView(), HillfortImageListener {
       }
     }
     return super.onOptionsItemSelected(item)
+  }
+
+  override fun showHillfort(hillfort: HillfortModel) {
+    hillfortTitle.setText(presenter.hillfort.title)
+    description.setText(presenter.hillfort.description)
+    lat.setText("%.6f".format(presenter.hillfort.location.lat))
+    lng.setText("%.6f".format(presenter.hillfort.location.lng))
   }
 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

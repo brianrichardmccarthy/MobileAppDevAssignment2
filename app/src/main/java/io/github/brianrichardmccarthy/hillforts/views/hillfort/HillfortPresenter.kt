@@ -1,9 +1,17 @@
 package io.github.brianrichardmccarthy.hillforts.views.hillfort
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
 import io.github.brianrichardmccarthy.hillforts.helpers.showImagePicker
-import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
 import io.github.brianrichardmccarthy.hillforts.models.Location
 import kotlinx.android.synthetic.main.activity_hillfort.*
@@ -11,14 +19,19 @@ import org.jetbrains.anko.intentFor
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.R.id.*
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageGalleryAdapter
+import io.github.brianrichardmccarthy.hillforts.helpers.checkLocationPermissions
 import io.github.brianrichardmccarthy.hillforts.views.*
 import io.github.brianrichardmccarthy.hillforts.views.hillfortMaps.MapsActivity
+import io.github.brianrichardmccarthy.hillforts.helpers.createDefaultLocationRequest
 import org.jetbrains.anko.toast
 
 class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
   var hillfort = HillfortModel()
   var edit = false
-
+  lateinit var map: GoogleMap
+  var defaultLocation = Location(52.245696, -7.139102, 15f)
+  var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(activity)
+  val locationRequest = createDefaultLocationRequest()
   init {
 
     if (activity.intent.hasExtra("hillfort_edit")){
@@ -28,20 +41,53 @@ class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
       activity.description.setText(hillfort.description)
       activity.notes.setText(hillfort.notes)
       activity.visit.isChecked = hillfort.visited
-      activity.rating.setText(hillfort.rating.toString())
+      activity.rating.text = hillfort.rating.toString()
       activity.date_visited.updateDate(hillfort.yearVisited, hillfort.monthVisited, hillfort.dayVisited)
-
+      view!!.showHillfort(hillfort)
       for ( h: HillfortModel in app.currentUser.favourites) {
-        if (h.title.equals(hillfort.title)) {
+        if (h.title == hillfort.title) {
           activity.fav.isChecked = true
           break
         }
       }
 
+    } else {
+      if (checkLocationPermissions(activity)) {
+        doSetLocation()
+      } else {
+        locationUpdate(defaultLocation.lat, defaultLocation.lng)
+      }
     }
 
     loadHillfortImages()
 
+  }
+
+  @SuppressLint("MissingPermission")
+  fun doSetCurrentLocation() {
+    locationService.lastLocation.addOnSuccessListener {
+      locationUpdate(it.latitude, it.longitude)
+    }
+  }
+
+  @SuppressLint("MissingPermission")
+  fun doResartLocationUpdates() {
+
+    var locationCallback = object : LocationCallback() {
+      override fun onLocationResult(locationResult: LocationResult?) {
+        if (locationResult != null && locationResult.locations != null) {
+          val l = locationResult.locations.last()
+          locationUpdate(l.latitude, l.longitude)
+        }
+      }
+    }
+    if (!edit) {
+      locationService.requestLocationUpdates(locationRequest, locationCallback, null)
+    }
+  }
+
+  fun doSetLocation() {
+    view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(hillfort.location.lat, hillfort.location.lng, hillfort.location.zoom))
   }
 
   fun doHillfortLocation() {
@@ -119,6 +165,7 @@ class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
       hillfort.location.lat = location.lat
       hillfort.location.lng = location.lng
       hillfort.location.zoom = location.zoom
+      locationUpdate(hillfort.location.lat, hillfort.location.lng)
     }
   }
 
@@ -139,6 +186,22 @@ class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
   fun showHillfortImages(images: List<String>){
     activity.hillfortImageGallery.adapter = HillfortImageGalleryAdapter(images, activity as HillfortActivity)
     activity.hillfortImageGallery.adapter?.notifyDataSetChanged()
+  }
+
+  fun locationUpdate(lat: Double, lng: Double) {
+    hillfort.location.lat = lat
+    hillfort.location.lng = lng
+    hillfort.location.zoom = 15f
+    map?.clear()
+    map?.uiSettings?.setZoomControlsEnabled(true)
+    val options = MarkerOptions().title(hillfort.title).position(LatLng(hillfort.location.lat, hillfort.location.lng))
+    map?.addMarker(options)
+    map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(hillfort.location.lat, hillfort.location.lng), hillfort.location.zoom))
+    view?.showHillfort(hillfort)
+  }
+
+  fun doConfigureMap() {
+    locationUpdate(hillfort.location.lat, hillfort.location.lng)
   }
 
 }
