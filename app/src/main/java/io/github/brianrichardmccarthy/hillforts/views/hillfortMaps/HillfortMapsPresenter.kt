@@ -12,11 +12,10 @@ import org.jetbrains.anko.info
 class HillfortMapsPresenter(val activity: HillfortMapsActivity) {
 
   lateinit var map: GoogleMap
-  lateinit var app: MainApp
+  var app: MainApp
 
     init {
       app = activity.application as MainApp
-
     }
 
     fun initMap() {

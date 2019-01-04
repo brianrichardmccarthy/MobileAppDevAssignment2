@@ -29,8 +29,8 @@ class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
 
     mapView.onCreate(savedInstanceState)
     mapView.getMapAsync {
-      presenter.initMap()
       presenter.map = it
+      presenter.initMap()
     }
   }
 
