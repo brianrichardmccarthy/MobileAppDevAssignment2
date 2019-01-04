@@ -6,16 +6,14 @@ import io.github.brianrichardmccarthy.hillforts.R.id.*
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
+import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 import kotlinx.android.synthetic.main.activity_signup.*
 import org.jetbrains.anko.toast
 
-class HillfortSignupPresenter(val activity: HillfortSignupActivity) {
+class HillfortSignupPresenter(val activity: HillfortSignupActivity) : BasePresenter(activity) {
 
   private var user = UserModel()
-  var app : MainApp
-
   init {
-      app = activity.application as MainApp
       clearFields()
       activity.username.requestFocus()
   }

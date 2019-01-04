@@ -7,8 +7,9 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
 import io.github.brianrichardmccarthy.hillforts.R
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 
-class MapsActivity  : AppCompatActivity(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
+class MapsActivity  : BaseView(), GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
   lateinit var map: GoogleMap
   lateinit var presenter: MapsPresenter
@@ -17,7 +18,7 @@ class MapsActivity  : AppCompatActivity(), GoogleMap.OnMarkerDragListener, Googl
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_maps)
     val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
-    presenter = MapsPresenter(this)
+    presenter = initPresenter(MapsPresenter(this)) as MapsPresenter
     mapFragment.getMapAsync {
       map = it
       map.setOnMarkerDragListener(this)

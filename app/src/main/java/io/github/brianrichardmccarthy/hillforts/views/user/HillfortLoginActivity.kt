@@ -7,13 +7,14 @@ import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import io.github.brianrichardmccarthy.hillforts.views.hillfortList.HillfortListActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
-class HillfortLoginActivity: AppCompatActivity(), AnkoLogger {
+class HillfortLoginActivity: BaseView() {
 
   lateinit var presenter: HillfortLoginPresenter
 
@@ -21,7 +22,7 @@ class HillfortLoginActivity: AppCompatActivity(), AnkoLogger {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_login)
 
-    presenter = HillfortLoginPresenter(this)
+    presenter = initPresenter(HillfortLoginPresenter(this)) as HillfortLoginPresenter
 
     btn_login.setOnClickListener{
       presenter.doLogin()

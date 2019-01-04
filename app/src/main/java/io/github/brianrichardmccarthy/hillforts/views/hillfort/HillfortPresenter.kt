@@ -10,21 +10,16 @@ import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.intentFor
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.R.id.*
+import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageGalleryAdapter
+import io.github.brianrichardmccarthy.hillforts.views.*
 import io.github.brianrichardmccarthy.hillforts.views.hillfortMaps.MapsActivity
 import org.jetbrains.anko.toast
 
-class HillfortPresenter(val activity: HillfortActivity) {
-
-  val IMAGE_REQUEST = 1
-  val IMAGE_GALLERY_REQUEST = 2
-  val LOCATION_REQUEST = 3
-
+class HillfortPresenter(val activity: BaseView) : BasePresenter(activity) {
   var hillfort = HillfortModel()
-  var app : MainApp
   var edit = false
 
   init {
-    app = activity.application as MainApp
 
     if (activity.intent.hasExtra("hillfort_edit")){
       edit = true
@@ -43,8 +38,9 @@ class HillfortPresenter(val activity: HillfortActivity) {
         }
       }
 
-      // activity.btnAdd.setText(R.string.button_saveHillfort)
     }
+
+    loadHillfortImages()
 
   }
 
@@ -63,9 +59,6 @@ class HillfortPresenter(val activity: HillfortActivity) {
   }
 
   fun doactivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-
-
-
   }
 
   fun doImageClick() {
@@ -116,7 +109,7 @@ class HillfortPresenter(val activity: HillfortActivity) {
   fun doImageRequest(data: Intent?) {
     if (data != null){
       hillfort.images.add(data.data!!.toString())
-      activity.loadHillfortImages()
+      loadHillfortImages()
     }
   }
 
@@ -135,8 +128,17 @@ class HillfortPresenter(val activity: HillfortActivity) {
       val original = data.extras.getString("original")
       if (image.isEmpty()) hillfort.images.remove(original)
       else hillfort.images.set(hillfort.images.indexOf(original), image)
-      activity.loadHillfortImages()
+      loadHillfortImages()
     }
+  }
+
+  fun loadHillfortImages(){
+    showHillfortImages(hillfort.images)
+  }
+
+  fun showHillfortImages(images: List<String>){
+    activity.hillfortImageGallery.adapter = HillfortImageGalleryAdapter(images, activity as HillfortActivity)
+    activity.hillfortImageGallery.adapter?.notifyDataSetChanged()
   }
 
 }

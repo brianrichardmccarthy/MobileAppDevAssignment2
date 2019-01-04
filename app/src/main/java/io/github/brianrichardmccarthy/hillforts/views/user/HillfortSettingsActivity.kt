@@ -7,10 +7,11 @@ import androidx.preference.*
 import android.view.MenuItem
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.activity_hillfort_settings.*
 import org.jetbrains.anko.AnkoLogger
 
-class HillfortSettingsActivity: AppCompatActivity(), AnkoLogger {
+class HillfortSettingsActivity: BaseView() {
 
 
   lateinit var presenter: HillfortSettingsPresenter
@@ -19,11 +20,10 @@ class HillfortSettingsActivity: AppCompatActivity(), AnkoLogger {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_settings)
 
-    toolbarSettings.title = title
-    setSupportActionBar(toolbarSettings)
+    init(toolbarSettings)
     supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-      presenter = HillfortSettingsPresenter(this)
+      presenter = initPresenter(HillfortSettingsPresenter(this)) as HillfortSettingsPresenter
 
     supportFragmentManager.beginTransaction()
         .add(R.id.settings_fragment_container, HillfortSettingsFragment())

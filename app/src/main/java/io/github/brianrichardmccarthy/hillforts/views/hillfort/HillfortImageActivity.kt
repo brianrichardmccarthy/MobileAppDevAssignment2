@@ -11,11 +11,13 @@ import com.squareup.picasso.Picasso
 import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.R.id.image_delete
 import io.github.brianrichardmccarthy.hillforts.helpers.showImagePicker
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
+import io.github.brianrichardmccarthy.hillforts.views.IMAGE_REQUEST
 import kotlinx.android.synthetic.main.activity_hillfort_image.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
+class HillfortImageActivity: BaseView() {
 
   lateinit var presenter: HillfortImagePresenter
 
@@ -27,8 +29,7 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_image)
 
-
-    info("Opening image ${image_delete}")
+    presenter = initPresenter(HillfortImagePresenter(this)) as HillfortImagePresenter
 
     displayImage()
   }
@@ -45,7 +46,7 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
         onBackPressed()
       }
       R.id.image_change -> {
-        showImagePicker(this, presenter.IMAGE_REQUEST)
+        showImagePicker(this, IMAGE_REQUEST)
       }
       android.R.id.home -> onBackPressed()
     }
@@ -55,7 +56,7 @@ class HillfortImageActivity: AppCompatActivity(), AnkoLogger {
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     when(requestCode){
-      presenter.IMAGE_REQUEST -> {
+      IMAGE_REQUEST -> {
           presenter.doActivityResult(data)
       }
     }

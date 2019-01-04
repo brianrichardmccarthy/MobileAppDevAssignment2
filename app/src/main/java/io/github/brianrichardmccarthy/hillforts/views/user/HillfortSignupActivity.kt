@@ -7,10 +7,11 @@ import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import kotlinx.android.synthetic.main.activity_signup.*
 import org.jetbrains.anko.toast
 
-class HillfortSignupActivity: AppCompatActivity() {
+class HillfortSignupActivity: BaseView() {
 
     lateinit var presenter: HillfortSignupPresenter
 
@@ -18,7 +19,7 @@ class HillfortSignupActivity: AppCompatActivity() {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_signup)
 
-    presenter = HillfortSignupPresenter(this)
+    presenter = initPresenter(HillfortSignupPresenter(this)) as HillfortSignupPresenter
 
     btnCreateIn.setOnClickListener{
         presenter.doSignup()

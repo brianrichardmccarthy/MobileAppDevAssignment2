@@ -11,6 +11,7 @@ import io.github.brianrichardmccarthy.hillforts.R
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortAdapter
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortListener
 import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import io.github.brianrichardmccarthy.hillforts.views.hillfortMaps.HillfortMapsActivity
 import io.github.brianrichardmccarthy.hillforts.views.user.HillfortSettingsActivity
 import io.github.brianrichardmccarthy.hillforts.views.hillfort.HillfortActivity
@@ -19,7 +20,7 @@ import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
 
-class HillfortListActivity: AppCompatActivity(), HillfortListener {
+class HillfortListActivity: BaseView(), HillfortListener {
 
 
   private lateinit var drawerLayout: androidx.drawerlayout.widget.DrawerLayout
@@ -33,14 +34,14 @@ class HillfortListActivity: AppCompatActivity(), HillfortListener {
     setContentView(R.layout.activity_hillfort_list)
     drawerLayout = findViewById(R.id.drawer_layout)
 
-    presenter = HillforListPresenter(this)
-
     toolbarMain.title = title
     setSupportActionBar(toolbarMain)
     supportActionBar?.apply {
       setDisplayHomeAsUpEnabled(true)
       setHomeAsUpIndicator(R.drawable.ic_menu)
     }
+
+    presenter = initPresenter(HillforListPresenter(this)) as HillforListPresenter
 
     navView = findViewById<NavigationView>(R.id.hillfort_nav_view)
 

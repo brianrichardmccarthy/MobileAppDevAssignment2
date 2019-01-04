@@ -7,18 +7,13 @@ import io.github.brianrichardmccarthy.hillforts.R.id.login_userpassword
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
+import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 import io.github.brianrichardmccarthy.hillforts.views.hillfortList.HillfortListActivity
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
-class HillfortLoginPresenter(val activity: HillfortLoginActivity) {
-
-  lateinit var app: MainApp
-
-    init {
-      app = activity.application as MainApp
-    }
+class HillfortLoginPresenter(val activity: HillfortLoginActivity) : BasePresenter(activity) {
 
   fun doLogin() {
       val email = activity.login_useremail.text.toString()

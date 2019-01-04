@@ -3,14 +3,13 @@ package io.github.brianrichardmccarthy.hillforts.views.user
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
+import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 
-class HillfortSettingsPresenter(val activity: HillfortSettingsActivity) {
+class HillfortSettingsPresenter(val activity: HillfortSettingsActivity) : BasePresenter(activity) {
 
-  private lateinit var app: MainApp
-  private lateinit var sharedPrefs: SharedPreferences
+  private var sharedPrefs: SharedPreferences
 
   init {
-    app = activity.application as MainApp
     sharedPrefs = PreferenceManager.getDefaultSharedPreferences(activity)
     sharedPrefs.edit().clear().apply()
 

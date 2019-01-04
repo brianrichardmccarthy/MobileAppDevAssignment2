@@ -6,14 +6,18 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import io.github.brianrichardmccarthy.hillforts.R
+import io.github.brianrichardmccarthy.hillforts.R.id.*
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageGalleryAdapter
 import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageListener
 import io.github.brianrichardmccarthy.hillforts.models.Location
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
+import io.github.brianrichardmccarthy.hillforts.views.IMAGE_GALLERY_REQUEST
+import io.github.brianrichardmccarthy.hillforts.views.IMAGE_REQUEST
+import io.github.brianrichardmccarthy.hillforts.views.LOCATION_REQUEST
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.toast
 
-class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener {
+class HillfortActivity : BaseView(), HillfortImageListener {
 
   lateinit var presenter: HillfortPresenter
 
@@ -21,16 +25,11 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort)
 
-    presenter = HillfortPresenter(this)
-
-    toolbarAdd.title = title
-    setSupportActionBar(toolbarAdd)
-    supportActionBar?.setDisplayHomeAsUpEnabled(true)
+    init(toolbarAdd)
+    presenter = initPresenter(HillfortPresenter(this)) as HillfortPresenter
 
     val layoutManager = androidx.recyclerview.widget.GridLayoutManager(this, 2)
     hillfortImageGallery.layoutManager = layoutManager
-
-    loadHillfortImages()
 
     chooseImage.setOnClickListener {
       presenter.doChooseImage()
@@ -40,7 +39,6 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       presenter.doHillfortLocation()
     }
 
-    // btnAdd.setOnClickListener { presenter.doBtnAddClick() }
   }
 
   override fun onImageClick(image: String) {
@@ -57,13 +55,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       R.id.item_cancel -> {
         finish()
       }
+      R.id.item_save -> presenter.doBtnAddClick()
       R.id.item_delete -> {
-          presenter.doDelete()
+        presenter.doDelete()
       }
-      R.id.item_save -> {
-          presenter.doBtnAddClick()
-      }
-
     }
     return super.onOptionsItemSelected(item)
   }
@@ -71,24 +66,15 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
   override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     when(requestCode) {
-      presenter.IMAGE_REQUEST -> {
-          presenter.doImageRequest(data)
+      IMAGE_REQUEST -> {
+        presenter.doImageRequest(data)
       }
-      presenter.LOCATION_REQUEST -> {
-          presenter.doLocationRequest(data)
+      LOCATION_REQUEST -> {
+        presenter.doLocationRequest(data)
       }
-      presenter.IMAGE_GALLERY_REQUEST -> {
-          presenter.doImageGalleryRequest(data)
+      IMAGE_GALLERY_REQUEST -> {
+        presenter.doImageGalleryRequest(data)
       }
     }
-  }
-
-  fun loadHillfortImages(){
-    showHillfortImages(presenter.hillfort.images)
-  }
-
-  fun showHillfortImages(images: List<String>){
-    hillfortImageGallery.adapter = HillfortImageGalleryAdapter(images, this)
-    hillfortImageGallery.adapter?.notifyDataSetChanged()
   }
 }

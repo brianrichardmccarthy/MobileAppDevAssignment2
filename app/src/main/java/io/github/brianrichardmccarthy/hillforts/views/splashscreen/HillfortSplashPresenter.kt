@@ -3,11 +3,12 @@ package io.github.brianrichardmccarthy.hillforts.views.splashscreen
 import android.content.Intent
 import android.os.Handler
 import androidx.core.content.ContextCompat.startActivity
+import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 import io.github.brianrichardmccarthy.hillforts.views.user.HillfortLoginActivity
 
-class  HillfortSplashPresenter(val activity: HillfortSplashActivity) {
+class  HillfortSplashPresenter(val activity: HillfortSplashActivity) : BasePresenter(activity) {
 
-  private lateinit var delayHandler: Handler
+  private var delayHandler: Handler
   private val SPLASH_DELAY: Long = 1000
 
   internal val runnable: Runnable = Runnable {

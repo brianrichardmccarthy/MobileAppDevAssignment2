@@ -9,23 +9,23 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import io.github.brianrichardmccarthy.hillforts.R
+import io.github.brianrichardmccarthy.hillforts.R.id.*
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 
 import kotlinx.android.synthetic.main.activity_hillfort_maps.*
 import kotlinx.android.synthetic.main.content_hillfort_maps.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
-class HillfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener, AnkoLogger {
+class HillfortMapsActivity : BaseView(), GoogleMap.OnMarkerClickListener {
 
   lateinit var presenter: HillfortMapsPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.activity_hillfort_maps)
-    setSupportActionBar(toolbarMaps)
-
-    presenter = HillfortMapsPresenter(this)
+    init(toolbarMaps)
+    presenter = initPresenter(HillfortMapsPresenter(this)) as HillfortMapsPresenter
 
     mapView.onCreate(savedInstanceState)
     mapView.getMapAsync {

@@ -5,9 +5,10 @@ import android.os.Bundle
 import android.os.Handler
 import androidx.appcompat.app.AppCompatActivity
 import io.github.brianrichardmccarthy.hillforts.R
+import io.github.brianrichardmccarthy.hillforts.views.BaseView
 import io.github.brianrichardmccarthy.hillforts.views.user.HillfortLoginActivity
 
-class HillfortSplashActivity: AppCompatActivity() {
+class HillfortSplashActivity: BaseView() {
 
 
   lateinit var presenter: HillfortSplashPresenter
@@ -15,7 +16,7 @@ class HillfortSplashActivity: AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_splash)
-    presenter = HillfortSplashPresenter(this)
+    presenter = initPresenter(HillfortSplashPresenter(this)) as HillfortSplashPresenter
 
   }
 

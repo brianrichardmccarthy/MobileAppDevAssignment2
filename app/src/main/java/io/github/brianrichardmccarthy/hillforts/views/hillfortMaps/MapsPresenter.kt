@@ -8,8 +8,9 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import io.github.brianrichardmccarthy.hillforts.models.Location
+import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 
-class MapsPresenter(val activity: MapsActivity) {
+class MapsPresenter(val activity: MapsActivity) : BasePresenter(activity) {
 
   var location = Location()
 
