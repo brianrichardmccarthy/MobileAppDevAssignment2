@@ -43,7 +43,7 @@ class HillfortPresenter(val activity: HillfortActivity) {
         }
       }
 
-      activity.btnAdd.setText(R.string.button_saveHillfort)
+      // activity.btnAdd.setText(R.string.button_saveHillfort)
     }
 
   }

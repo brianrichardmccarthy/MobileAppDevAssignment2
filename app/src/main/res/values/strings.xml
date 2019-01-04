@@ -73,5 +73,6 @@
   <string name="title_activity_edit_location">Hillfort</string>
   <string name="hillfort_fav">Favourite</string>
   <string name="view_favs_text">Toggle Favourites</string>
+  <string name="menu_savePlacemark">Save</string>
 
 </resources>

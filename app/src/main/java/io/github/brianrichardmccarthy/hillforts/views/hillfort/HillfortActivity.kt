@@ -11,6 +11,7 @@ import io.github.brianrichardmccarthy.hillforts.adapters.HillfortImageListener
 import io.github.brianrichardmccarthy.hillforts.models.Location
 import kotlinx.android.synthetic.main.activity_hillfort.*
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.toast
 
 class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener {
 
@@ -39,9 +40,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       presenter.doHillfortLocation()
     }
 
-    btnAdd.setOnClickListener {
-      presenter.doBtnAddClick()
-    }
+    // btnAdd.setOnClickListener { presenter.doBtnAddClick() }
   }
 
   override fun onImageClick(image: String) {
@@ -61,6 +60,10 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger, HillfortImageListener 
       R.id.item_delete -> {
           presenter.doDelete()
       }
+      R.id.item_save -> {
+          presenter.doBtnAddClick()
+      }
+
     }
     return super.onOptionsItemSelected(item)
   }
