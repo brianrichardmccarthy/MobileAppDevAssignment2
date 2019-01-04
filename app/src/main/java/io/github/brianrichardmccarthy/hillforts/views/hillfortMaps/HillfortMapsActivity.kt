@@ -24,7 +24,7 @@ class HillfortMapsActivity : BaseView(), GoogleMap.OnMarkerClickListener {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    init(toolbarMaps)
+    init(toolbarMaps, true)
     presenter = initPresenter(HillfortMapsPresenter(this)) as HillfortMapsPresenter
 
     mapView.onCreate(savedInstanceState)

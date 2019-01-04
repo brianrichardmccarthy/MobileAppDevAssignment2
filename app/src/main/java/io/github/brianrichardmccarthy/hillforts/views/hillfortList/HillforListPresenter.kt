@@ -2,10 +2,12 @@ package io.github.brianrichardmccarthy.hillforts.views.hillfortList
 
 import android.view.MenuItem
 import androidx.core.app.ActivityCompat.startActivityForResult
+import com.google.firebase.auth.FirebaseAuth
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
 import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
 import io.github.brianrichardmccarthy.hillforts.views.BaseView
+import io.github.brianrichardmccarthy.hillforts.views.VIEW
 import io.github.brianrichardmccarthy.hillforts.views.hillfort.HillfortActivity
 import org.jetbrains.anko.intentFor
 import kotlin.system.exitProcess
@@ -39,6 +41,11 @@ class HillforListPresenter(val activity: BaseView) : BasePresenter(activity) {
     app.users.update(app.currentUser.copy())
     (activity as HillfortListActivity).loadHillforts()
 
+  }
+
+  fun doLogout() {
+      FirebaseAuth.getInstance().signOut()
+      view?.navigateTo(VIEW.LOGIN)
   }
 
 }

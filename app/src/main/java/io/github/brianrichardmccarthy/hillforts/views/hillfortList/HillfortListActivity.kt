@@ -86,6 +86,9 @@ class HillfortListActivity: BaseView(), HillfortListener {
         drawerLayout.openDrawer(GravityCompat.START)
         true
       }
+      R.id.item_logout -> {
+          presenter.doLogout()
+      }
     }
     return super.onOptionsItemSelected(item)
   }
