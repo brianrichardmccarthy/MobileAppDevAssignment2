@@ -2,8 +2,8 @@ package io.github.brianrichardmccarthy.hillforts.views.user
 
 import androidx.core.app.ActivityCompat.startActivityForResult
 import io.github.brianrichardmccarthy.hillforts.R
-import io.github.brianrichardmccarthy.hillforts.R.id.login_useremail
-import io.github.brianrichardmccarthy.hillforts.R.id.login_userpassword
+//import io.github.brianrichardmccarthy.hillforts.R.id.login_useremail
+//import io.github.brianrichardmccarthy.hillforts.R.id.login_userpassword
 import io.github.brianrichardmccarthy.hillforts.helpers.sha256
 import io.github.brianrichardmccarthy.hillforts.main.MainApp
 import io.github.brianrichardmccarthy.hillforts.models.UserModel
@@ -13,6 +13,9 @@ import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
+class HillfortLoginPresenter {}
+
+/*
 class HillfortLoginPresenter(val activity: HillfortLoginActivity) : BasePresenter(activity) {
 
   fun doLogin() {
@@ -45,3 +48,5 @@ class HillfortLoginPresenter(val activity: HillfortLoginActivity) : BasePresente
   }
 
 }
+
+    */

@@ -14,6 +14,9 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.toast
 
+class HillfortLoginActivity {}
+
+/*
 class HillfortLoginActivity: BaseView() {
 
   lateinit var presenter: HillfortLoginPresenter
@@ -38,4 +41,7 @@ class HillfortLoginActivity: BaseView() {
     super.onActivityResult(requestCode, resultCode, data)
   }
 
+
+
 }
+*/

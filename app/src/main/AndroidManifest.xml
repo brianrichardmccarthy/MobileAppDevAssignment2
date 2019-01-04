@@ -40,10 +40,10 @@
       android:label="@string/title_activity_edit_location"
       android:parentActivityName=".views.hillfort.HillfortActivity" />
 
-    <activity android:name=".views.user.HillfortLoginActivity" />
+    <activity android:name=".views.firebase.LoginView" />
     <activity android:name=".views.user.HillfortSettingsActivity" />
     <activity android:name=".views.user.HillfortSignupActivity"
-      android:parentActivityName=".views.user.HillfortLoginActivity"></activity>
+      android:parentActivityName=".views.firebase.LoginView"></activity>
   </application>
 
 </manifest>

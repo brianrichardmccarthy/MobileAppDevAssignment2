@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Handler
 import androidx.core.content.ContextCompat.startActivity
 import io.github.brianrichardmccarthy.hillforts.views.BasePresenter
+import io.github.brianrichardmccarthy.hillforts.views.firebase.LoginView
 import io.github.brianrichardmccarthy.hillforts.views.user.HillfortLoginActivity
 
 class  HillfortSplashPresenter(val activity: HillfortSplashActivity) : BasePresenter(activity) {
@@ -13,7 +14,7 @@ class  HillfortSplashPresenter(val activity: HillfortSplashActivity) : BasePrese
 
   internal val runnable: Runnable = Runnable {
     if (!activity.isFinishing) {
-      val intent = Intent(activity.applicationContext, HillfortLoginActivity::class.java)
+      val intent = Intent(activity.applicationContext, LoginView::class.java)
       activity.startActivity(intent)
       activity.finish()
     }

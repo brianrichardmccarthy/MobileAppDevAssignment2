@@ -5,6 +5,7 @@ import android.os.Parcelable
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.app.AppCompatActivity
 import io.github.brianrichardmccarthy.hillforts.models.HillfortModel
+import io.github.brianrichardmccarthy.hillforts.views.firebase.LoginView
 import io.github.brianrichardmccarthy.hillforts.views.hillfort.HillfortActivity
 import io.github.brianrichardmccarthy.hillforts.views.hillfortList.HillfortListActivity
 import io.github.brianrichardmccarthy.hillforts.views.hillfortMaps.HillfortMapsActivity
@@ -17,7 +18,7 @@ val IMAGE_GALLERY_REQUEST = 3
 
 
 enum class VIEW {
-  LOCATION, PLACEMARK, MAPS, LIST
+  LOCATION, PLACEMARK, MAPS, LIST, LOGIN
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -31,6 +32,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
       VIEW.PLACEMARK -> intent = Intent(this, HillfortActivity::class.java)
       VIEW.MAPS -> intent = Intent(this, HillfortMapsActivity ::class.java)
       VIEW.LIST -> intent = Intent(this, HillfortListActivity::class.java)
+      VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
     }
     if (key != "") {
       intent.putExtra(key, value)

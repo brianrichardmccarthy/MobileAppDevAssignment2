@@ -117,7 +117,7 @@ class HillfortListActivity: BaseView(), HillfortListener {
     showHillforts(if (showAll) presenter.app.currentUser.hillforts else presenter.app.currentUser.favourites)
   }
 
-  fun showHillforts (hillforts: List<HillfortModel>) {
+  override fun showHillforts (hillforts: List<HillfortModel>) {
     recyclerView.adapter = HillfortAdapter(hillforts, this)
     recyclerView.adapter?.notifyDataSetChanged()
   }
